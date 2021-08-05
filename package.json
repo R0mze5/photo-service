@@ -1,0 +1,10 @@
+{
+  "name": "photo-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "RomanKh <roman.rs.kh@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "graphql-yoga": "^1.18.3"
+  }
+}
