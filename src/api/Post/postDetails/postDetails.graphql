@@ -1,0 +1,3 @@
+type Query {
+  postDetails(postId: String!): Post!
+}
