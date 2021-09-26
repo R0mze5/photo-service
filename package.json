@@ -1,48 +1,30 @@
 {
   "name": "photo-service",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "RomanKh <roman.rs.kh@gmail.com>",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "nodemon --exec ts-node src/server.ts",
-    "deploy": "prisma1 deploy",
-    "generate": "prisma1 generate",
-    "prisma": "yarn run deploy && yarn run generate"
+    "start": "yarn lerna run start",
+    "client": "yarn workspace @photo-service/client start",
+    "server": "yarn workspace @photo-service/server start",
+    "prisma": "yarn workspace @photo-service/server prisma",
+    "bootstrap": "lerna init && lerna exec -- linklocal && lerna bootstrap --mutex=network"
   },
-  "dependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.15.0",
-    "@babel/node": "^7.14.9",
-    "@babel/preset-env": "^7.15.0",
-    "@babel/preset-typescript": "^7.15.0",
-    "@graphql-tools/load-files": "^6.3.2",
-    "babel-node": "^0.0.1-security",
-    "dotenv": "^10.0.0",
-    "graphql-tools": "^8.1.0",
-    "graphql-yoga": "^1.18.3",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "nodemailer": "^6.6.3",
-    "nodemailer-sendgrid": "^1.0.3",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "prisma-client-lib": "^1.34.12",
-    "ts-node": "^10.1.0",
-    "typescript": "^4.3.5"
+  "workspaces": [
+    "packages/*"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^8.5.5",
-    "@types/morgan": "^1.9.3",
-    "@types/nodemailer": "^6.4.4",
-    "@types/nodemailer-sendgrid": "^1.0.0",
-    "@types/passport": "^1.0.7",
-    "@types/passport-jwt": "^3.0.6",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "nodemon": "^2.0.12"
+    "lerna": "^4.0.0"
   }
 }
