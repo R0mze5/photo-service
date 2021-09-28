@@ -120,7 +120,9 @@ export const Auth: React.FC = () => {
       <Form>
         {action === "logIn" && (
           <>
-            <title>Log In | Photo service</title>
+            <Helmet>
+              <title>Log In | Photo service</title>
+            </Helmet>
             <form action="" onSubmit={handleSubmit}>
               <Input placeholder={"Email"} type={"email"} {...email}></Input>
               <Button text={"Log in"}></Button>
@@ -129,7 +131,9 @@ export const Auth: React.FC = () => {
         )}
         {action === "confirmSecret" && (
           <>
-            <title>Sign Up | Photo service</title>
+            <Helmet>
+              <title>Sign Up | Photo service</title>
+            </Helmet>
             <form action="" onSubmit={handleSubmit}>
               <Input placeholder={"Email"} type={"email"} {...email}></Input>
               <Input placeholder={"Secret from Email"} {...secret}></Input>
@@ -140,7 +144,9 @@ export const Auth: React.FC = () => {
 
         {action === "signUp" && (
           <>
-            <title>Confirm Secret | Photo service</title>
+            <Helmet>
+              <title>Confirm Secret | Photo service</title>
+            </Helmet>
             <form action="" onSubmit={handleSubmit}>
               <Input placeholder={"First Name"} {...firstName}></Input>
               <Input placeholder={"Last Name"} {...lastName}></Input>

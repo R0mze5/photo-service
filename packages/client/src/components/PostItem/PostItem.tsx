@@ -1,13 +1,19 @@
-import { PostId, User, File, CommentId } from "@photo-service/contracts";
+import {
+  PostId,
+  User,
+  File,
+  CommentId,
+  Comment,
+} from "@photo-service/contracts";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useInput from "src/hooks/useInput";
-import { useTheme } from "styled-components";
 import { Avatar } from "../Avatar";
 import { FatText } from "../FatText";
 import { IconComment } from "../Icons/IconComment";
 import { IconHeartEmpty } from "../Icons/IconHeartEmpty";
 import { IconHeartFull } from "../Icons/IconHeartFull";
+
 import {
   StyledContainer,
   StyledHeader,
@@ -19,7 +25,16 @@ import {
   StyledButtons,
   StyledButton,
   StyledTimestamp,
+  StyledTextarea,
+  StyledFileImage,
+  StyledComment,
+  StyledCaption,
+  StyledComments,
 } from "./PostItem.styled";
+import { useMutation } from "react-apollo-hooks";
+import { ADD_COMMENT, TOGGLE_LIKE } from "./PostItem.queries";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface PostItemProps {
   id: PostId;
@@ -39,6 +54,7 @@ interface PostItemProps {
 
 export const PostItem: React.FC<PostItemProps> = ({
   id,
+
   location,
   caption,
   user,
@@ -50,9 +66,94 @@ export const PostItem: React.FC<PostItemProps> = ({
 }) => {
   const [isLikedPost, setIsLikedPost] = useState(isLiked);
   const [likesCountPost, setLikesCountPost] = useState(likesCount);
-  const comment = useInput("");
-  const theme = useTheme();
-  console.log(theme);
+  const { setValue: setCommentValue, ...commentField } = useInput("");
+  const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState<
+    Array<{
+      id: CommentId;
+      text: string;
+      user: Pick<User, "id" | "userName">;
+    }>
+  >([]);
+  const totalFiles = files.length;
+
+  const [toggleLikeMutation] = useMutation<{ toggleLike: boolean }>(
+    TOGGLE_LIKE,
+    { variables: { postId: id } }
+  );
+
+  const [addCommentMutation, { loading }] =
+    useMutation<{ addComment: Comment }>(ADD_COMMENT);
+
+  const toggleLike = async () => {
+    const isNewLiked = !isLikedPost;
+    const initialLikesCount = likesCountPost;
+    setIsLikedPost(isNewLiked);
+
+    const newLikesCount =
+      isNewLiked === true ? initialLikesCount + 1 : initialLikesCount - 1;
+
+    setLikesCountPost(newLikesCount);
+
+    try {
+      const { data } = await toggleLikeMutation();
+
+      if (
+        typeof data?.toggleLike !== "boolean" ||
+        isNewLiked !== data?.toggleLike
+      ) {
+        throw new Error("not responded");
+      }
+    } catch (error) {
+      setIsLikedPost(!isNewLiked);
+      setLikesCountPost(initialLikesCount);
+      toast.error("cant register like");
+    }
+  };
+
+  const addComment: React.KeyboardEventHandler = async (event) => {
+    if (event.charCode === 13 && !event.ctrlKey && !event.shiftKey) {
+      event.preventDefault();
+      if (commentField.value?.trim() === "") {
+        toast.error("comment is required");
+      }
+      try {
+        const { data } = await addCommentMutation({
+          variables: { postId: id, text: commentField.value },
+        });
+        if (data?.addComment.id) {
+          setCommentValue("");
+          if (data?.addComment) {
+            setSelfComments([...selfComments, data.addComment]);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const slideNext = useCallback(() => {
+    if (currentItem === totalFiles - 1) {
+      setCurrentItem(0);
+    } else {
+      setCurrentItem(currentItem + 1);
+    }
+  }, [currentItem, totalFiles]);
+
+  // const slidePrev = () => {
+  //   if (currentItem === 0) {
+  //     setCurrentItem(totalFiles - 1);
+  //   } else {
+  //     setCurrentItem(currentItem - 1);
+  //   }
+  // };
+
+  useEffect(() => {
+    if (totalFiles > 1) {
+      setTimeout(() => slideNext(), 3000);
+    }
+  }, [totalFiles, currentItem, slideNext]);
 
   return (
     <StyledContainer>
@@ -65,14 +166,18 @@ export const PostItem: React.FC<PostItemProps> = ({
       </StyledHeader>
       <StyledFiles>
         {files &&
-          files.map((file) => {
-            return <StyledFile src={file.url} key={file.id}></StyledFile>;
+          files.map((file, index) => {
+            return (
+              <StyledFile isActive={index === currentItem} key={file.id}>
+                <StyledFileImage src={file.url}></StyledFileImage>
+              </StyledFile>
+            );
           })}
       </StyledFiles>
       <StyledMeta>
         <StyledButtons>
-          <StyledButton>
-            {isLiked ? (
+          <StyledButton onClick={toggleLike}>
+            {isLikedPost ? (
               <IconHeartFull></IconHeartFull>
             ) : (
               <IconHeartEmpty></IconHeartEmpty>
@@ -82,8 +187,38 @@ export const PostItem: React.FC<PostItemProps> = ({
             <IconComment></IconComment>
           </StyledButton>
         </StyledButtons>
-        <FatText>{likesCount === 1 ? "1 like" : `${likesCount} likes`}</FatText>
+        <FatText>
+          {likesCountPost === 1 ? "1 like" : `${likesCountPost} likes`}
+        </FatText>
+        {caption && (
+          <StyledCaption>
+            <Link to={`/${user.userName}`}>
+              <FatText>{user.userName}</FatText>
+            </Link>
+            {caption}
+          </StyledCaption>
+        )}
+        {comments && (
+          <StyledComments>
+            {[...comments, ...selfComments].map((comment) => {
+              return (
+                <StyledComment key={comment.id}>
+                  <Link to={`/${comment?.user?.userName}`}>
+                    <FatText>{comment?.user?.userName}</FatText>
+                  </Link>{" "}
+                  {comment.text}
+                </StyledComment>
+              );
+            })}
+          </StyledComments>
+        )}
         <StyledTimestamp>{createdAt || "recently"}</StyledTimestamp>
+        <StyledTextarea
+          placeholder={"Add a comment"}
+          {...commentField}
+          onKeyPress={addComment}
+          disabled={loading}
+        ></StyledTextarea>
       </StyledMeta>
     </StyledContainer>
   );

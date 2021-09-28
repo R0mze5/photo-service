@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TextareaAutosize from "react-textarea-autosize";
 
 export const StyledContainer = styled.div`
   ${({ theme }) => theme.whiteBox};
@@ -26,14 +27,32 @@ export const StyledLocation = styled.address`
   font-size: 12px;
 `;
 
-export const StyledFiles = styled.div``;
+export const StyledFiles = styled.div`
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+`;
 
-export const StyledFile = styled.img`
-  max-width: 100%;
+export const StyledFile = styled.div<{ isActive: boolean }>`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-color: ${({ theme }) => theme.bgColor};
+  opacity: ${({ isActive }) => (isActive ? 1 : 0)};
+
+  transition: opacity 2s;
+`;
+
+export const StyledFileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;
 
 export const StyledMeta = styled.div`
   padding: 15px;
+  user-select: none;
 `;
 
 export const StyledButtons = styled.div`
@@ -57,4 +76,25 @@ export const StyledTimestamp = styled.data`
   font-weight: 400;
   font-size: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGrayColor};
+`;
+
+export const StyledTextarea = styled(TextareaAutosize)`
+  border: none;
+  width: 100%;
+  resize: none;
+  font-size: 14px;
+  :focus {
+    outline: none;
+  }
+`;
+
+export const StyledCaption = styled.div`
+  margin-top: 10px;
+`;
+
+export const StyledComments = styled.ul`
+  margin-top: 10px;
+`;
+export const StyledComment = styled.li`
+  margin-bottom: 7px;
 `;

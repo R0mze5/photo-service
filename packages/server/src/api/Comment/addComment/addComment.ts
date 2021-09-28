@@ -1,4 +1,5 @@
 import { PostId, User } from '@photo-service/contracts';
+import { COMMENT_FRAGMENT } from '../../../fragments';
 import { prisma } from '../../../../generated/prisma-client';
 // import { PostId } from '../../../../typings/Post';
 // import { User } from '../../../../typings/User';
@@ -12,7 +13,7 @@ export default {
       const { postId, text } = args;
 
       try {
-        return prisma.createComment({
+        const comment = await prisma.createComment({
           text,
           user: {
             connect: {
@@ -25,6 +26,8 @@ export default {
             },
           },
         });
+
+        return comment;
       } catch (error) {
         return null;
       }

@@ -12,6 +12,13 @@ export const COMMENT = `
   }
 `;
 
+export const COMMENT_FRAGMENT = `
+fragment CommentParts on Comment {
+${COMMENT}
+}
+  
+`;
+
 export const FILES = `
   id
   url

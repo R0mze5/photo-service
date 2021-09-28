@@ -24,3 +24,10 @@ export interface PostCreate extends BaseInterface {
   caption?: string
   user: User
 }
+
+export interface PostSearch {
+  id: PostId
+  files: Array<File>
+  likesCount: number
+  commentCount: number
+}

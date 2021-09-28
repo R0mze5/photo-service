@@ -18,7 +18,7 @@ export default {
 
             user: { id_in: userIds },
           },
-          // orderBy: 'createdAt_DESC',
+          orderBy: 'createdAt_DESC',
         });
 
         return posts;

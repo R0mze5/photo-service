@@ -3,11 +3,13 @@ import { useQuery } from "react-apollo-hooks";
 import { Loader } from "src/components/Loader";
 import Helmet from "react-helmet";
 import { PostItem } from "src/components/PostItem";
-import { GET_FEED } from "./Feed.queries";
+import { GET_MY_FEED } from "./Feed.queries";
 import { Container } from "./Feed.styled";
 
 export const Feed: React.FC = () => {
-  const { data, loading } = useQuery<{ getFeed: Array<Post> }>(GET_FEED);
+  const { data, loading } = useQuery<{
+    getFeed: Array<Post>;
+  }>(GET_MY_FEED, { fetchPolicy: "no-cache" });
 
   return (
     <Container>

@@ -19,4 +19,13 @@ export interface User  extends BaseInterface{
   followers: Array<User>
   rooms: Array<Comment>
   loginSecret: string
+  isFollowing:boolean
 }
+
+
+export interface UserSearch {
+  avatar?: string | null
+  userName: string
+  isFollowing:boolean
+}
+
