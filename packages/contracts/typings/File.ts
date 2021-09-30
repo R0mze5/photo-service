@@ -2,9 +2,10 @@ import { BaseInterface } from "./Base";
 import { Post } from "./Post";
 
 export type FileId = string
+export type FileUrl = string
 
 export interface File extends BaseInterface {
   id: FileId
-  url: string
+  url: FileUrl
   post: Post
 }

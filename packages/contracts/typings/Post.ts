@@ -4,6 +4,8 @@ import { File } from './File';
 import { BaseInterface } from './Base';
 
 export type PostId = string
+export type PostLikesCount = number
+export type PostCommentCount = number
 
 export interface Post extends BaseInterface {
   id: PostId
@@ -14,7 +16,8 @@ export interface Post extends BaseInterface {
   likes: Array<any>
   comments: Array<Comment>
   isLiked: boolean
-  likesCount: number
+  likesCount: PostLikesCount
+  commentCount: PostCommentCount
   createdAt: string
 }
 

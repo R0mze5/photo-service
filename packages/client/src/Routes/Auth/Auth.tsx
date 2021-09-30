@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "react-apollo-hooks";
-import Button from "../../components/Button";
+import { Button } from "../../components/Button";
 import Input from "../../components/Input";
 import useInput from "../../hooks/useInput";
 import Helmet from "react-helmet";
@@ -22,7 +22,7 @@ export const Auth: React.FC = () => {
   const secret = useInput("");
   const firstName = useInput("");
   const lastName = useInput("");
-  const email = useInput("admin@admin.com");
+  const email = useInput("");
 
   const [requestSecret] = useMutation<{ requestSecret: boolean }>(LOG_IN, {
     variables: { email: email.value },

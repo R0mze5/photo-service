@@ -1,13 +1,18 @@
 import { Container, Image } from "./Avatar.styled";
 
-interface AvatarProps {
+export interface AvatarProps {
   size?: "sm" | "md" | "lg";
   url?: string | null;
+  className?: string;
 }
 
-export const Avatar: React.FC<AvatarProps> = ({ size = "sm", url }) => {
+export const Avatar: React.FC<AvatarProps> = ({
+  size = "sm",
+  url,
+  className,
+}) => {
   return (
-    <Container size={size}>
+    <Container className={className} size={size}>
       <Image src={url || "#"}></Image>
     </Container>
   );

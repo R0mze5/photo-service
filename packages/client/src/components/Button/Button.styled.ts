@@ -1,11 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-interface Props {
-  text: string;
-}
-
-const Container = styled.button`
+export const StyledButton = styled.button`
   width: 100%;
   border: 0;
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -15,10 +10,5 @@ const Container = styled.button`
   text-align: center;
   padding: 7px 0;
   font-size: 14px;
+  cursor: pointer;
 `;
-
-const Button: React.FC<Props> = ({ text }) => {
-  return <Container>{text}</Container>;
-};
-
-export default Button;
