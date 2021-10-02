@@ -40,8 +40,9 @@ export const UserCard: React.FC<UserCardProps> = ({
             <Button
               disabled={renderProps.isLoading}
               onClick={renderProps.onFollow}
-              text={renderProps.isFollowing ? "unfollow" : "follow"}
-            ></Button>
+            >
+              {renderProps.isFollowing ? "unfollow" : "follow"}
+            </Button>
           )}
         ></FollowButton>
       )}

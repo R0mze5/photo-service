@@ -1,6 +1,6 @@
 import { Comment } from './Comment';
 import { User } from './User';
-import { File } from './File';
+import { File, FileSearch } from './File';
 import { BaseInterface } from './Base';
 
 export type PostId = string
@@ -30,7 +30,7 @@ export interface PostCreate extends BaseInterface {
 
 export interface PostSearch {
   id: PostId
-  files: Array<File>
+  files: Array<FileSearch>
   likesCount: number
   commentCount: number
 }

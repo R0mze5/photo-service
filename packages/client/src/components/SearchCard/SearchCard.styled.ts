@@ -14,6 +14,7 @@ export const StyledOverlay = styled.div`
 export const StyledContainer = styled(Link)<{ background: string }>`
   overflow: hidden;
   background-image: url(${({ background }) => background});
+  background-position: center;
   background-size: cover;
   cursor: pointer;
 

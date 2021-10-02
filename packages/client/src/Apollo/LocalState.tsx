@@ -22,10 +22,10 @@ export const resolvers: Resolvers = {
     logUserOut: (_, __, { cache }): null => {
       localStorage.removeItem("token");
       cache.writeData({
-        data: {
-          isLoggedIn: false,
-        },
+        data: { isLoggedIn: false },
       });
+
+      window.location.replace("/");
 
       return null;
     },

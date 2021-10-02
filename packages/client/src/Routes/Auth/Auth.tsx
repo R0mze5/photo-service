@@ -125,7 +125,7 @@ export const Auth: React.FC = () => {
             </Helmet>
             <form action="" onSubmit={handleSubmit}>
               <Input placeholder={"Email"} type={"email"} {...email}></Input>
-              <Button text={"Log in"}></Button>
+              <Button>Log in</Button>
             </form>
           </>
         )}
@@ -137,7 +137,7 @@ export const Auth: React.FC = () => {
             <form action="" onSubmit={handleSubmit}>
               <Input placeholder={"Email"} type={"email"} {...email}></Input>
               <Input placeholder={"Secret from Email"} {...secret}></Input>
-              <Button text={"Confirm"}></Button>
+              <Button>Confirm</Button>
             </form>
           </>
         )}
@@ -152,7 +152,7 @@ export const Auth: React.FC = () => {
               <Input placeholder={"Last Name"} {...lastName}></Input>
               <Input placeholder={"Email"} type={"email"} {...email}></Input>
               <Input placeholder={"Username"} {...username}></Input>
-              <Button text={"Sign Up"}></Button>
+              <Button>Sign Up</Button>
             </form>
           </>
         )}

@@ -8,12 +8,15 @@ type User {
   fullName: String
   bio: String
   posts: [Post!]!
+  postsCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   isFollowing: Boolean!
   isSelf: Boolean!
   following: [User!]!
+  followingCount: Int!
   followers: [User!]!
+  followersCount: Int!
   rooms: [Room!]!
   loginSecret: String!
   createdAt: String

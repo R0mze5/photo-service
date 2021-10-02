@@ -15,12 +15,16 @@ export interface User extends BaseInterface {
   email: string;
   firstName?: string;
   lastName?: string;
+  fullName: string;
   bio?: string;
   posts: Array<Post>;
+  postsCount: number
   likes: Array<any>;
   comments: Array<Comment>;
   following: Array<User>;
+  followingCount: number
   followers: Array<User>;
+  followersCount: number
   rooms: Array<Comment>;
   loginSecret: string;
   isFollowing: UserIsFollowing;

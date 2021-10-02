@@ -160,7 +160,9 @@ export const PostItem: React.FC<PostItemProps> = ({
       <StyledHeader>
         <Avatar url={user.avatar}></Avatar>
         <StyledUserColumn>
-          <FatText>{user.userName}</FatText>
+          <Link to={`/${user.userName}`}>
+            <FatText>{user.userName}</FatText>
+          </Link>
           <StyledLocation>{location}</StyledLocation>
         </StyledUserColumn>
       </StyledHeader>
@@ -194,7 +196,7 @@ export const PostItem: React.FC<PostItemProps> = ({
           <StyledCaption>
             <Link to={`/${user.userName}`}>
               <FatText>{user.userName}</FatText>
-            </Link>
+            </Link>{" "}
             {caption}
           </StyledCaption>
         )}
