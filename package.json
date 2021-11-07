@@ -5,7 +5,7 @@
   "scripts": {
     "start": "yarn lerna run start",
     "client": "yarn workspace @photo-service/client start",
-    "server": "yarn workspace @photo-service/server start",
+    "server": "yarn workspace @photo-service/server dev",
     "prisma": "yarn workspace @photo-service/server prisma",
     "bootstrap": "lerna init && lerna exec -- linklocal && lerna bootstrap --mutex=network",
     "tunnel": "lt --port 4000"
