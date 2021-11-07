@@ -9,7 +9,9 @@
     "start": "nodemon --exec ts-node src/server.ts",
     "deploy": "prisma1 deploy",
     "generate": "prisma1 generate",
-    "prisma": "yarn run deploy && yarn run generate"
+    "prisma": "yarn run deploy && yarn run generate",
+    "build": "babel src -d dist",
+    "postbuild": "cd src && npx copy api/**/*.graphql ../build/"
   },
   "typings": "./tsconfig",
   "dependencies": {
