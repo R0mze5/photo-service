@@ -83,12 +83,7 @@ export const Auth: React.FC = () => {
         toast.error("Email is required");
       }
     } else if (action === "signUp") {
-      if (
-        username.value !== "" &&
-        email.value !== "" &&
-        firstName.value !== "" &&
-        lastName.value !== ""
-      ) {
+      if (username.value !== "" && email.value !== "") {
         try {
           await createAccount();
         } catch (error) {
@@ -110,7 +105,7 @@ export const Auth: React.FC = () => {
           toast.error("Can't confirm secret");
         }
       } else {
-        toast.error("All fields required");
+        toast.error("Email and Username fields required");
       }
     }
   };

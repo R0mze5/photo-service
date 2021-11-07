@@ -21,11 +21,11 @@ export interface Post extends BaseInterface {
   createdAt: string
 }
 
-export interface PostCreate extends BaseInterface {
+export interface PostCreate  {
   files: Array<string>
   location?: string
   caption?: string
-  user: User
+  // user: User
 }
 
 export interface PostSearch {

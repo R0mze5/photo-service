@@ -4,6 +4,8 @@ import { prisma } from '../../../../generated/prisma-client';
 export default {
   Mutation: {
     createPost: async (_: undefined, args: PostCreate, { request, isAuthenticated }:any) => {
+      console.log(args);
+      console.log(1);
       isAuthenticated(request);
 
       const { caption = '', location = '', files } = args;

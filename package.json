@@ -5,13 +5,10 @@
   "scripts": {
     "start": "yarn lerna run start",
     "client": "yarn workspace @photo-service/client start",
-    "app": "yarn workspace @photo-service/app start",
-    "android": "yarn workspace @photo-service/app android",
-    "ios": "yarn workspace @photo-service/app ios",
-    "web": "yarn workspace @photo-service/app web",
     "server": "yarn workspace @photo-service/server start",
     "prisma": "yarn workspace @photo-service/server prisma",
-    "bootstrap": "lerna init && lerna exec -- linklocal && lerna bootstrap --mutex=network"
+    "bootstrap": "lerna init && lerna exec -- linklocal && lerna bootstrap --mutex=network",
+    "tunnel": "lt --port 4000"
   },
   "workspaces": [
     "packages/*"
